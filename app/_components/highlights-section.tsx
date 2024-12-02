@@ -1,116 +1,89 @@
 "use client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import React from "react";
-import Slider from "react-slick";
 
-// You'll need to add these styles in your main CSS file or import them here
+import React, { useState, useCallback, useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoPlay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const HighlightCard: React.FC<{
   title: string;
-  description?: string;
+  description: string;
   imageUrl: string;
 }> = ({ title, description, imageUrl }) => (
-  <Card className="mx-2">
-    <CardContent className="p-0">
-      <img
+  <div className="relative w-full">
+    <div className="aspect-[16/9] relative">
+      <Image
         src={imageUrl}
         alt={title}
-        className="h-[450px] w-full object-cover rounded-t-lg"
+        fill
+        className="object-cover rounded-lg"
       />
-      <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        {/* <p className="text-muted-foreground">{description}</p> */}
-      </div>
-    </CardContent>
-  </Card>
+    </div>
+    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-6">
+      <h3 className="text-2xl font-semibold mb-2 text-white">{title}</h3>
+      <p className="hidden md:block text-white/80">{description}</p>
+    </div>
+  </div>
 );
 
-const PrevArrow: React.FC<{ onClick?: () => void }> = ({ onClick }) => (
-  <Button
-    variant="outline"
-    size="icon"
-    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
-    onClick={onClick}
-  >
-    <ChevronLeft className="h-4 w-4" />
-  </Button>
-);
+export default function HighlightsSection() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [AutoPlay()]);
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
 
-const NextArrow: React.FC<{ onClick?: () => void }> = ({ onClick }) => (
-  <Button
-    variant="outline"
-    size="icon"
-    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
-    onClick={onClick}
-  >
-    <ChevronRight className="h-4 w-4" />
-  </Button>
-);
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  );
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  );
 
-const HighlightsSection: React.FC = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setPrevBtnEnabled(emblaApi.canScrollPrev());
+    setNextBtnEnabled(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on("select", onSelect);
+  }, [emblaApi, onSelect]);
 
   const highlights = [
     {
-      title: "Lorem lllokoo",
+      title: "Hackathon",
       description:
         "Our flagship 48-hour coding event where students build innovative projects.",
-      imageUrl:
-        "https://fr.geneawiki.com/images/thumb/c/cb/Blason_St-_Denis-_du-_Sig.jpg/150px-Blason_St-_Denis-_du-_Sig.jpg",
+      imageUrl: "/placeholder.svg?height=720&width=1280",
     },
     {
-      title: "Lorem lllokoo",
+      title: "Tech Talk",
       description:
         "Monthly sessions featuring industry experts sharing insights on cutting-edge technologies.",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2x-p9aCoOTf-zzNPZtNLiWVSKkWz3jANB-g&s",
+      imageUrl: "/placeholder.svg?height=720&width=1280",
     },
     {
-      title: "Lorem lllokoo",
+      title: "Open Source Contributions",
       description:
         "Collaborative efforts to contribute to major open source projects in the tech community.",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrb9IBKGeQWmvjdlMexJ2BlWzJf-DsoBOoLQ&s",
+      imageUrl: "/placeholder.svg?height=720&width=1280",
     },
     {
-      title: "Lorem lllokoo",
+      title: "AI Workshop",
       description:
         "Hands-on workshop exploring the latest in artificial intelligence and machine learning.",
-      imageUrl:
-        "https://fr.geneawiki.com/images/thumb/2/29/Saint_Denis_du_Sig_Eglise.jpg/200px-Saint_Denis_du_Sig_Eglise.jpg",
+      imageUrl: "/placeholder.svg?height=720&width=1280",
     },
     {
-      title: "Lorem lllokoo",
+      title: "Coding Competitions",
       description:
         "Regular coding challenges to sharpen problem-solving skills and algorithmic thinking.",
-      imageUrl:
-        "https://tenes.info/nostalgie/albums/STDENISDUSIG/saint_denis_du_sig.thumb.png",
+      imageUrl: "/placeholder.svg?height=720&width=1280",
     },
   ];
 
@@ -120,14 +93,36 @@ const HighlightsSection: React.FC = () => {
         <h2 className="text-3xl font-bold mb-8 text-center">
           Univac Highlights
         </h2>
-        <Slider {...settings}>
-          {highlights.map((highlight, index) => (
-            <HighlightCard key={index} {...highlight} />
-          ))}
-        </Slider>
+        <div className="relative">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+              {highlights.map((highlight, index) => (
+                <div className="flex-[0_0_100%]" key={index}>
+                  <HighlightCard {...highlight} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10"
+            onClick={scrollPrev}
+            disabled={!prevBtnEnabled}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10"
+            onClick={scrollNext}
+            disabled={!nextBtnEnabled}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </section>
   );
-};
-
-export default HighlightsSection;
+}

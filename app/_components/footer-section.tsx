@@ -11,10 +11,6 @@ export default function FooterSection() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Univac</h2>
-            <p className="text-sm">
-              Empowering future computer scientists through innovation,
-              collaboration, and education.
-            </p>
           </div>
           <div>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
