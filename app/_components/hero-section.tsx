@@ -53,7 +53,7 @@ const BinaryRain = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full opacity-20"
+      className="absolute top-0 left-0 w-full h-full opacity-30 dark:opacity-40"
     />
   );
 };
@@ -68,8 +68,8 @@ export default function HeroSection() {
             Welcome to <span className="text-blue-600">Univac</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-xl text-muted-foreground">
-            Decoding the future, one bit at a time. Join us in exploring the
-            endless possibilities of computer science.
+            Decoding the future. Join us in exploring the endless possibilities
+            of computer science.
           </p>
           <div className="mt-10 flex justify-center gap-4">
             <Button size="lg">Join Our Community</Button>

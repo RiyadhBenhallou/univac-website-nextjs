@@ -1,17 +1,17 @@
 "use client";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import Slider from "react-slick";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // You'll need to add these styles in your main CSS file or import them here
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const HighlightCard: React.FC<{
   title: string;
-  description: string;
+  description?: string;
   imageUrl: string;
 }> = ({ title, description, imageUrl }) => (
   <Card className="mx-2">
@@ -19,7 +19,7 @@ const HighlightCard: React.FC<{
       <img
         src={imageUrl}
         alt={title}
-        className="w-full h-64 object-cover rounded-t-lg"
+        className="h-[450px] w-full object-cover rounded-t-lg"
       />
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
@@ -56,7 +56,7 @@ const HighlightsSection: React.FC = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
@@ -64,7 +64,7 @@ const HighlightsSection: React.FC = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         },
       },
       {
@@ -82,34 +82,35 @@ const HighlightsSection: React.FC = () => {
       description:
         "Our flagship 48-hour coding event where students build innovative projects.",
       imageUrl:
-        "https://rtrsports.com/wp-content/uploads/2024/07/pexels-rezk-assaf-10795564.jpg",
+        "https://fr.geneawiki.com/images/thumb/c/cb/Blason_St-_Denis-_du-_Sig.jpg/150px-Blason_St-_Denis-_du-_Sig.jpg",
     },
     {
       title: "Lorem lllokoo",
       description:
         "Monthly sessions featuring industry experts sharing insights on cutting-edge technologies.",
       imageUrl:
-        "https://www.formula1.com/fom-website/2023/McLaren/GettyImages-1696512674.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2x-p9aCoOTf-zzNPZtNLiWVSKkWz3jANB-g&s",
     },
     {
       title: "Lorem lllokoo",
       description:
         "Collaborative efforts to contribute to major open source projects in the tech community.",
-      imageUrl: "https://i.ytimg.com/vi/pb6CZysNscA/maxresdefault.jpg",
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrb9IBKGeQWmvjdlMexJ2BlWzJf-DsoBOoLQ&s",
     },
     {
       title: "Lorem lllokoo",
       description:
         "Hands-on workshop exploring the latest in artificial intelligence and machine learning.",
       imageUrl:
-        "https://i.eurosport.com/2016/09/08/1928257-40560641-310-310.jpg",
+        "https://fr.geneawiki.com/images/thumb/2/29/Saint_Denis_du_Sig_Eglise.jpg/200px-Saint_Denis_du_Sig_Eglise.jpg",
     },
     {
       title: "Lorem lllokoo",
       description:
         "Regular coding challenges to sharpen problem-solving skills and algorithmic thinking.",
       imageUrl:
-        "https://i.pinimg.com/736x/f8/d9/8c/f8d98cff14ee35f4af3fe7e999babcbf.jpg",
+        "https://tenes.info/nostalgie/albums/STDENISDUSIG/saint_denis_du_sig.thumb.png",
     },
   ];
 
